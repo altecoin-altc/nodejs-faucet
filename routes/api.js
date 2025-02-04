@@ -95,10 +95,10 @@ async function registerAccount(options, ip) {
         //console.log('hold sec', latestRegs[ip].time - time)
     }
 
-    if (!isAllowReg) {
-        result = {"error": {"base": ["Only one account per IP " + config.bts.timeoutIp / 60 + " min"]}};
-        return result
-    }
+    // if (!isAllowReg) {
+    //     result = {"error": {"base": ["Only one account per IP " + config.bts.timeoutIp / 60 + " min"]}};
+    //     return result
+    // }
 
     latestRegs[ip] = {
         time: Math.floor(Date.now() / 1000),
@@ -150,8 +150,6 @@ async function registerAccount(options, ip) {
                     "memo_key": options.memo,
                 }
             };
-            console.log('Account created', result);
-            
             await db.put('1x' + options.name, {
                 "name": options.name,
                 "time": Math.floor(Date.now() / 1000),
@@ -202,6 +200,8 @@ router.post('/v1/accounts', async function (req, res, next) {
         err = !(await is_cheap_name(name))// is not cheap name = true
     }
     if (req.body.account && !err) {
+        console.log(req.body.account.referrer);
+        
         result = await registerAccount({
             name: name,
             owner: req.body.account.owner_key,
