@@ -164,7 +164,7 @@ async function registerAccount(options, ip) {
             }
 
         } catch (e) {
-            //console.log('e', e)
+            console.log('e', e)
             result = {"error": {"base": ["Error registration new account."]}}
         }
     } else {
@@ -207,7 +207,7 @@ router.post('/v1/accounts', async function (req, res, next) {
             owner: req.body.account.owner_key,
             active: req.body.account.active_key,
             memo: req.body.account.memo_key,
-            referrer: req.body.account.referrer,
+            referrer: req.body.account.referrer || referrer,
         }, hashIp)
     } else {
         result = {"error": {"base": ["Only standard accounts names allowed"]}}
