@@ -150,6 +150,8 @@ async function registerAccount(options, ip) {
                     "memo_key": options.memo,
                 }
             };
+            console.log('Account created', result);
+            
             await db.put('1x' + options.name, {
                 "name": options.name,
                 "time": Math.floor(Date.now() / 1000),
